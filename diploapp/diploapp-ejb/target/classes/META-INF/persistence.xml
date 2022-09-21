@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence>
+    <persistence-unit name="diploappDS" transaction-type="JTA">
+        <jta-data-source>java:/diploappDS</jta-data-source>
+        <class>com.brassonero.ejb.model.MaestraEnt</class>
+        <class>com.brassonero.ejb.model.GradoEnt</class>
+        <class>com.brassonero.ejb.model.MateriaEnt</class>
+
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <properties>
+        <property name="hibernate.hbm2ddl.auto" value="validate"/>
+        <!--<property name="hibernate.show.sql" value="true"></property>-->
+        <property name="hibernate.show.sql" value="false"></property>
+        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"></property>
+    </properties>
+</persistence-unit>
+        </persistence>

@@ -1,0 +1,7 @@
+com\brassonero\controller\jpa\ListaMaestrasController.class
+com\brassonero\controller\jpa\AltaMaestraController.class
+com\brassonero\controller\materia\ListaMaeMateriaController.class
+com\brassonero\controller\materia\NuevaMateriaController.class
+com\brassonero\controller\comun\SesionController.class
+com\brassonero\controller\converter\GradoConverter.class
+com\brassonero\controller\materia\MateriaController.class

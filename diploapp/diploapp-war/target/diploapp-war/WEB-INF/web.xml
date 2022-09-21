@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<web-app version="5.0"
+         xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemeLocation="https://jakarta.ee/xml/ns/jakartaee
+                 https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd">
+    <context-param>
+        <param-name>jakarta.face.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>nova-light</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>jakarta.faces.CLIENT_WINDOW_MODE</param-name>
+        <param-value>url</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <!--Definicion de seguridad-->
+    <!--Definicion de formularios de login-->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>diplojavaAplicationDomain</realm-name>
+        <form-login-config>
+            <form-login-page>/comun/login.html</form-login-page>
+            <form-error-page>/comun/errorLogin.html</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <security-role>
+        <description>Definicion de rol 1</description>
+        <role-name>ROL1</role-name>
+    </security-role>
+    <security-role>
+        <description>Definicion de rol 2</description>
+        <role-name>ROL2</role-name>
+    </security-role>
+    <security-role>
+        <description>Definicion de rol 3</description>
+        <role-name>ROL3</role-name>
+    </security-role>
+
+    <!-- Restricciones de seguridad -->
+    <security-constraint>
+        <display-name>URL comunes</display-name>
+        <web-resource-collection>
+            <web-resource-name>PaginasComunes</web-resource-name>
+            <description>Proteccion para las paginas comunes a todos los roles</description>
+            <!--<url-pattern>/prime/*</url-pattern>-->
+            <url-pattern>/extras/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Roles con acceso a paginas comunes</description>
+            <role-name>ROL1</role-name>
+            <role-name>ROL2</role-name>
+            <role-name>ROL3</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <description>Sin encriptar</description>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>/index.xhtml</welcome-file>
+    </welcome-file-list>
+
+</web-app>

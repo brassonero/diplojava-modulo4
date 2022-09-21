@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/diploapp.iml" filepath="$PROJECT_DIR$/diploapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diploapp-ear/diploapp-ear.iml" filepath="$PROJECT_DIR$/diploapp-ear/diploapp-ear.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diploapp-ejb/diploapp-ejb.iml" filepath="$PROJECT_DIR$/diploapp-ejb/diploapp-ejb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/diploapp-war/diploapp-war.iml" filepath="$PROJECT_DIR$/diploapp-war/diploapp-war.iml" />
+    </modules>
+  </component>
+</project>

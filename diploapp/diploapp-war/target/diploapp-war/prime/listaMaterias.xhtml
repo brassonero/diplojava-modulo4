@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <h:outputStylesheet library="css" name="estilosapp.css"/>
+    </h:head>
+    <h:body>
+        <h2 class="colortexto">Materias activas</h2>
+        <h:form id="sesion">
+            <p:menubar>
+                <p:submenu label="File" icon="pi pi-fw pi-file">
+                    <p:submenu label="Salir" icon="pi pi-fw pi-plus">
+                        <p:menuitem value="Salir" icon="pi pi-fw pi-sign-out"
+                                    action="#{sesionController.cerrarSesion}"/>
+                    </p:submenu>
+                    <p:menuitem value="Delete" icon="pi pi-fw pi-trash"/>
+                    <p:divider/>
+                    <p:menuitem value="Export" icon="pi pi-fw pi-external-link"/>
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+        <div>
+            <br/>
+            Bienvenido #{materiaController.usuario}
+            <br/>
+            <br/>
+        </div>
+        <h:form>
+            <p:commandButton icon="pi pi-plus" value="Nuevo" action="#{materiaController.nuevaMateria}"/>
+            <br/>
+            <br/>
+            <p:dataTable var="materia" value="#{materiaController.listaMaterias}">
+                <p:column headerText="ID">
+                    <h:outputText value="#{materia.id}"/>
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{materia.nombre}"/>
+                </p:column>
+                <p:column headerText="Maestras">
+                    <p:linkButton outcome="/prime/listaMaestrasMateria" icon="pi pi-star" style="margin-right:20px;">
+                        <f:param name="materiaId" value="#{materia.id}"/>
+                    </p:linkButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</f:view>
+
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Home</title>
+    <h:outputStylesheet library="css" name="styleapp.css"/>
+</h:head>
+<h:body>
+    <p:breadCrumb>
+        <p:menuitem value="Home" outcome="/index.xhtml"/>
+    </p:breadCrumb>
+    <br/>
+    <br/>
+    <div class="centrartexto">
+        <h1 style="color:#FF7777; font-style: italic;">DIPLO APP</h1>
+    </div>
+    <br/>
+    <div class="centrartexto2">
+        <br/>
+        <h:link value="Listado de Maestras" outcome="/prime/listaMaestras" class="noline"/>
+        <br/>
+        <br/>
+    </div>
+</h:body>
+</html>

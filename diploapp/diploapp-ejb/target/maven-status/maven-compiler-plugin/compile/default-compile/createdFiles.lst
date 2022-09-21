@@ -1,0 +1,13 @@
+com\brassonero\ejb\model\MateriaEnt.class
+com\brassonero\ejb\service\CatalogoServiceImpl.class
+com\brassonero\ejb\service\ICatalogoService.class
+com\brassonero\ejb\service\IMaestraService.class
+com\brassonero\ejb\service\MateriaServiceImpl.class
+com\brassonero\ejb\model\GradoEnt.class
+com\brassonero\ejb\service\MaestraServiceImpl.class
+com\brassonero\ejb\service\IGradoService.class
+com\brassonero\ejb\service\AbstractServiceFacade.class
+com\brassonero\ejb\service\IMateriaService.class
+com\brassonero\ejb\model\MaestraEnt.class
+com\brassonero\ejb\service\GradoServiceImpl.class
+com\brassonero\ejb\excepcion\SaveEntityException.class

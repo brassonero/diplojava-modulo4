@@ -1,0 +1,38 @@
+.colortexto{
+    color:#D800A6;
+    font-weight: bold;
+}
+
+.centrar{
+    text-align:center;
+}
+
+.centrartexto{
+    text-align:center;
+    border: 3px solid #400D51;
+    background-color: #400D51;
+    border-radius: 1em;
+}
+.centrartexto2{
+    text-align:center;
+    border: 3px solid #FF7777;
+    background-color: #FF7777;
+    border-radius: 1em;
+    color:#400D51; font-style: bold;
+}
+body{
+background-color: #31E1F7;
+}
+.noline{
+text-decoration: none;
+font-size:1.5em;
+
+}
+.noline:hover {
+  color:#D800A6;
+}
+
+.noline:active {
+  text-decoration: underline;
+  color:#D800A6;
+}

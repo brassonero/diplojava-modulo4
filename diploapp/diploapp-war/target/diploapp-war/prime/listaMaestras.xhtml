@@ -1,0 +1,137 @@
+<ui:composition template="/WEB-INF/template/plantilla.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="titulo" value="Listado de Maestras"/>
+
+    <ui:define name="contenido">
+        <!--<p style="color:#400D51;">
+            Pagina que utilizamos para listar maestras
+        </p>-->
+        <f:view contentType="text/html" encoding="UTF-8">
+            <h:form id="formListaMaestras">
+                <p:menubar>
+                    <!--<p:menuitem value="Nuevo" icon="pi pi-fw pi-plus"
+                                outcome="/prime/altaMaestras.xhtml"/>-->
+                    <p:menuitem value="Nuevo" icon="pi pi-fw pi-external-link"
+                                action="#{listaMaestrasController.nuevaMaestra}"
+                                oncomplete="PF('maestraDialogo').show()" update=":formDialogos"/>
+                </p:menubar>
+                <p:growl id="mensajes"/>
+                <p:dataTable id="dtMaestras" value="#{listaMaestrasController.maestraLista}" var="maestra">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{maestra.id}"/>
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{maestra.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Salario">
+                        <h:outputText value="#{maestra.salario}"/>
+                    </p:column>
+                    <p:column headerText="Correo">
+                        <h:outputText value="#{maestra.correo}"/>
+                    </p:column>
+                    <p:column headerText="Grado">
+                        <h:outputText value="#{maestra.grado.nombre}"/>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton icon="pi pi-pencil" update=":formDialogos:gest-maestra-content"
+                                         oncomplete="PF('maestraDialogo').show()" process="@this">
+                            <f:setPropertyActionListener value="#{maestra}"
+                                                         target="#{listaMaestrasController.maestraSelect}"/>
+                            <p:resetInput target=":formDialogos:gest-maestra-content"/>
+                        </p:commandButton>
+                        <span>                    </span>
+                        <p:commandButton icon="pi pi-trash" process="@this"
+                                         oncomplete="PF('borrarMaestraDialogo').show()">
+                            <f:setPropertyActionListener value="#{maestra}"
+                                                         target="#{listaMaestrasController.maestraSelect}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+            <h:form id="formDialogos">
+                <p:growl id="messDialog" showDetail="true"/>
+                <p:dialog header="Detalle maestra" modal="true" widgetVar="maestraDialogo" responsive="true">
+                    <p:outputPanel id="gest-maestra-content">
+                        <p:outputPanel rendered="#{not empty listaMaestrasController.maestraSelect}">
+                            <div class="field">
+                                <p:outputLabel for="name" value="Nombre:"/>
+                                <p:inputText id="name" value="#{listaMaestrasController.maestraSelect.nombre}"
+                                             required="true" maxlength="45">
+                                    <f:validateLength minimum="3" maximum="45"/>
+                                </p:inputText>
+                                <p:message for="name"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="salario" value="Salario:"/>
+                                <p:inputNumber id="salario" value="#{listaMaestrasController.maestraSelect.salario}"
+                                               symbol="$ "
+                                               symbolPosition="p" decimalSeparator="." thousandSeparator=","
+                                               required="true">
+                                    <f:validateDoubleRange minimum="5000.00" maximum="45000.00"/>
+                                </p:inputNumber>
+                                <p:message for="salario"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="correo" value="Correo:"/>
+                                <p:inputText id="correo" value="#{listaMaestrasController.maestraSelect.correo}"
+                                             required="true" validatorMessage="Correo invalido">
+                                    <f:validateLength minimum="4" maximum="45"/>
+                                    <f:validateRegex pattern="^[\w-\.]+@([\w]+\.)+[\w]{2,4}$"/>
+                                </p:inputText>
+                                <p:message for="correo"/>
+                            </div>
+                            <div>
+                                <p:outputLabel for="grado" value="Grado:"/>
+                                <p:selectOneMenu id="grado"
+                                                 value="#{listaMaestrasController.maestraSelect.grado}"
+                                                 required="true" layout="responsive" var="grado"
+                                                 converter="#{gradoConverter}"
+                                                 hideNoSelectionOption="#{not empty listaMaestrasController.maestraSelect.grado}">
+                                    <f:selectItem itemLabel="Selecciona un grado" itemValue="#{null}"
+                                                  noSelectionOption="true"/>
+                                    <f:selectItems value="#{listaMaestrasController.catGrados}" var="grado"
+                                                   itemLabel="#{grado.nombre}" itemValue="#{grado}"/>
+                                    <p:ajax event="valueChange" update="@this"/>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Nombre"/>
+                                        </f:facet>
+                                        <h:outputText value="#{grado.nombre}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="ID"/>
+                                        </f:facet>
+                                        <h:outputText value="#{grado.id}"/>
+                                    </p:column>
+                                </p:selectOneMenu>
+                                <p:message for="grado"/>
+                            </div>
+                        </p:outputPanel>
+                    </p:outputPanel>
+                    <f:facet name="footer">
+                        <p:commandButton value="Guardar" icon="pi pi-check"
+                                         actionListener="#{listaMaestrasController.salvaMaestra()}"
+                                         update="gest-maestra-content" process="gest-maestra-content @this"/>
+                        <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('maestraDialogo').hide()"/>
+                    </f:facet>
+                </p:dialog>
+
+                <p:confirmDialog widgetVar="borrarMaestraDialogo" width="300"
+                                 message="¿Estas seguro de borrar registro de la maestra?" header="Confirmar"
+                                 severity="warn">
+                    <p:commandButton value="Si" icon="pi pi-check"
+                                     actionListener="#{listaMaestrasController.borrarMaestra}" process="@this"
+                                     oncomplete="PF('borrarMaestraDialogo').hide()"/>
+                    <p:commandButton value="No" icon="pi pi-times" process="@this"
+                                     oncomplete="PF('borrarMaestraDialogo').hide()"/>
+                </p:confirmDialog>
+            </h:form>
+        </f:view>
+    </ui:define>
+</ui:composition>

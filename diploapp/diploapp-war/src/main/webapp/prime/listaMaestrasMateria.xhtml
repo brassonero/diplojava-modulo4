@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <title>Lista de Maestras</title>
+        <h:outputStylesheet library="css" name="styleapp.css"/>
+    </h:head>
+    <f:metadata>
+        <f:viewParam name="materiaId" value="#{listaMaeMateriaController.idMateria}"/>
+        <f:viewAction action="#{listaMaeMateriaController.cargaDatosMateria}"/>
+    </f:metadata>
+    <h:body>
+        <h2 class="colortexto">Lista de maestras en las materias
+            <em>#{listaMaeMateriaController.matActual.nombre}</em>
+        </h2>
+        <h:form>
+            <p:panel header="#{listaMaeMateriaController.matActual.nombre}"
+                     footer="#{listaMaeMateriaController.matActual.nombre}">
+                <p:dataTable id="tabMaestras" var="maestra" value="#{listaMaeMateriaController.listaMaestras}">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{maestra.id}"/>
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{maestra.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Salario">
+                        <h:outputText value="#{maestra.salario}"/>
+                    </p:column>
+                    <p:column headerText="Remover">
+                        <p:commandButton icon="pi pi-user-minus"
+                                         action="#{listaMaeMateriaController.removerMaestra}"
+                                         style="margin-right:20px;" update="tabMaestras">
+                            <f:setPropertyActionListener value="#{maestra}"
+                                                         target="#{listaMaeMateriaController.maestraSelect}"/>
+                            <p:confirm header="Confirmacion" message="¿Quiere borrar este registro?"
+                                       icon="pi pi-info-circle"/>
+                            <p:ajax/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" responsive="true" width="350">
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes"/>
+            </p:confirmDialog>
+        </h:form>
+    </h:body>
+</f:view>
+
+</html>
